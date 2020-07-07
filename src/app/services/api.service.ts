@@ -24,6 +24,8 @@ export class ApiService {
   handleError(error: HttpErrorResponse) {
     console.error(error);
 
+    this.errorMessage = error.message;
+
     // return an observable with a user-facing error message
     return throwError(this.errorMessage);
   }
