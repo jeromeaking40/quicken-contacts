@@ -136,7 +136,7 @@ export class AppComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert('There has been an error');
+        alert(error);
       }
     );
   }
