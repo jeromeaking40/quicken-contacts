@@ -1,0 +1,189 @@
+<div class="container pt-4">
+  <h1 class="text-center">
+    Quicken Contacts
+  </h1>
+
+  <div class="card">
+    <div class="pt-2 card-header">
+      <button class="add-contact btn btn-danger" (click)="open(content)">
+        <i class="fas fa-user"></i>
+        Add Contact
+      </button>
+    </div>
+
+    <div class="table-reponsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contact of contacts">
+            <td>{{ contact?.firstName }}</td>
+            <td>{{ contact?.lastName }}</td>
+            <td>{{ contact?.company }}</td>
+            <td>{{ contact?.email }}</td>
+            <td>{{ contact?.phone | phone: "US" }}</td>
+            <td>{{ contact?.address }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add New Contact</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="contactForm" (ngSubmit)="addContact(contactForm.value)">
+      <div class="form-group">
+        <label>First Name</label>
+        <input
+          id="firstName"
+          class="form-control"
+          placeholder="Enter the first name..."
+          name="firstName"
+          formControlName="firstName"
+          [ngClass]="{ 'is-invalid': submitted && cf.firstName.errors }"
+        />
+        <div *ngIf="submitted && cf.firstName.errors" class="invalid-feedback">
+          <div *ngIf="cf.firstName.errors.required">First Name is required</div>
+        </div>
+
+        <label>Last Name</label>
+        <input
+          class="form-control"
+          placeholder="Enter the last name..."
+          name="lastName"
+          formControlName="lastName"
+          [ngClass]="{ 'is-invalid': submitted && cf.lastName.errors }"
+        />
+        <div *ngIf="submitted && cf.lastName.errors" class="invalid-feedback">
+          <div *ngIf="cf.lastName.errors.required">Last Name is required</div>
+        </div>
+
+        <label>Company</label>
+        <input
+          class="form-control"
+          placeholder="Enter the company..."
+          name="company"
+          formControlName="company"
+          [ngClass]="{ 'is-invalid': submitted && cf.company.errors }"
+        />
+        <div *ngIf="submitted && cf.company.errors" class="invalid-feedback">
+          <div *ngIf="cf.company.errors.required">Company is required</div>
+        </div>
+
+        <label>Email</label>
+        <input
+          class="form-control"
+          placeholder="Enter the email..."
+          name="email"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && cf.email.errors }"
+        />
+        <div *ngIf="submitted && cf.email.errors" class="invalid-feedback">
+          <div *ngIf="cf.email.errors.required">Email is required</div>
+          <div *ngIf="cf.email.errors.email">
+            Email must be a valid email address
+          </div>
+        </div>
+
+        <label>Phone</label>
+        <input
+          class="form-control"
+          placeholder="Enter the phone..."
+          name="phone"
+          formControlName="phone"
+          [ngClass]="{ 'is-invalid': submitted && cf.phone.errors }"
+        />
+        <div *ngIf="submitted && cf.phone.errors" class="invalid-feedback">
+          <div *ngIf="cf.phone.errors.required">Phone is required</div>
+        </div>
+
+        <label>Street</label>
+        <input
+          class="form-control"
+          placeholder="Enter the address..."
+          name="address"
+          formControlName="street"
+          [ngClass]="{ 'is-invalid': submitted && cf.street.errors }"
+        />
+
+        <div *ngIf="submitted && cf.street.errors" class="invalid-feedback">
+          <div *ngIf="cf.street.errors.required">Street is required</div>
+        </div>
+
+        <label>City</label>
+        <input
+          class="form-control"
+          placeholder="Enter the city .."
+          name="address"
+          formControlName="city"
+          [ngClass]="{ 'is-invalid': submitted && cf.city.errors }"
+        />
+
+        <div *ngIf="submitted && cf.city.errors" class="invalid-feedback">
+          <div *ngIf="cf.city.errors.required">City is required</div>
+        </div>
+
+        <label>State:</label>
+        <select
+          formControlName="state"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && cf.state.errors }"
+        >
+          <option value="" disabled> Choose the state</option>
+          <option *ngFor="let state of usStates" [value]="state.name">
+            {{ state.name }}</option
+          >
+        </select>
+
+        <div *ngIf="submitted && cf.state.errors" class="invalid-feedback">
+          <div *ngIf="cf.state.errors.required">
+            State is required
+          </div>
+        </div>
+
+        <label>Zip</label>
+        <input
+          class="form-control"
+          placeholder="Enter the zip..."
+          name="address"
+          formControlName="zip"
+          [ngClass]="{ 'is-invalid': submitted && cf.zip.errors }"
+        />
+        <div *ngIf="submitted && cf.zip.errors" class="invalid-feedback">
+          <div *ngIf="cf.zip.errors.required">Zip is required</div>
+        </div>
+
+        <div class="text-center pt-4">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="addContact(contactForm.value)"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
