@@ -101,7 +101,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   open(content) {
-   this.modalSvc.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    this.modalSvc.open(content);
   }
 
   ngOnInit() {
@@ -144,13 +144,12 @@ export class AppComponent implements OnInit {
   addContact(value) {
     this.submitted = true;
 
-    let countryCode = '+1';
-
     // stop here if form is invalid
     if (this.contactForm.invalid) {
       return;
     }
 
+    // Append the new contact to the exisiting contacts
     this.contacts = this.contacts.concat({
       firstName: value.firstName,
       lastName: value.lastName,
@@ -160,9 +159,10 @@ export class AppComponent implements OnInit {
       address: `${value.street}, ${value.city}, ${value.state}, ${value.zip}`,
     });
 
+    // Log the new contact to the console
     console.log('New Contact!', value);
 
-
+    // Close the modal
     this.modalSvc.dismissAll();
   }
 }
