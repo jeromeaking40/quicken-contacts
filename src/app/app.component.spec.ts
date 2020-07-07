@@ -1,33 +1,15 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import {
-  ViewChild,
-  Component,
-  OnInit,
-  AfterContentInit,
-  TemplateRef,
-} from '@angular/core';
+import { TestBed, async } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DebugElement } from '@angular/core';
-
-import { of } from 'rxjs'; // Add import
 
 import { AppComponent } from './app.component';
 
 import { ApiService } from '../app/services/api.service';
 
-
 describe('AppComponent', () => {
   let apiSvc: ApiService;
-  let comp: AppComponent;
-  let de: DebugElement;
-  let el: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
